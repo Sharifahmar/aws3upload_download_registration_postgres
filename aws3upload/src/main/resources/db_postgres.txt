@@ -1,0 +1,40 @@
+CREATE DATABASE upload;
+
+
+CREATE TABLE public.candidate
+(
+  id integer NOT NULL DEFAULT nextval('candidate_id_seq'::regclass),
+  firstname character varying(50),
+  lastname character varying(50),
+  phonenumber character varying(50),
+  email character varying(50),
+  overallexp character varying(50),
+  relevantexp character varying(50),
+  workingstatus character varying(50),
+  strengths character varying(50),
+  availforintrvw character varying(50),
+  availforjoin character varying(50),
+  status character varying(50),
+  linkedinurl text,
+  vendorname character varying(100),
+  vendorcontact character varying(50),
+  referredby character varying(50),
+  referredbonus character varying(50),
+  primaryskills text,
+  secondaryskills text,
+  CONSTRAINT candidate_pkey PRIMARY KEY (id)
+  )
+
+
+  CREATE TABLE public.document
+(
+  id integer NOT NULL DEFAULT nextval('document_id_seq'::regclass),
+  candidateid integer NOT NULL,
+  documentname text,
+  documenttype text,
+  documentsize character varying(50),
+  CONSTRAINT document_pkey PRIMARY KEY (id),
+  CONSTRAINT document_candidateid_fkey FOREIGN KEY (candidateid)
+      REFERENCES public.candidate (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
